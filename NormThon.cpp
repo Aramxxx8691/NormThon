@@ -51,7 +51,7 @@ void copyFile(const std::string& srcpath, const std::string& dest)
         std::cerr << "File copy failed." << std::endl;
 }
 
-bool runNorminette(const std::string &filePath)
+bool runNorminette(const std::string &filePath, Users &tmp)
 {
     std::string command = "norminette " + filePath;
     FILE *pipe = popen(command.c_str(), "r");
@@ -71,10 +71,14 @@ bool runNorminette(const std::string &filePath)
     if (output.find("Error!") != std::string::npos)
     {
         std::cout << output << std::endl;
+        tmp.decrementCount();
         return false;
     }
     else if (output.find("OK!") != std::string::npos)
+    {
+        tmp.incrementCount();
         return true;
+    }
     else
         return false;
 }
@@ -83,21 +87,19 @@ void    NormThon::start()
 {
     Users       tmp;
     std::string str;
-    int         count = 0;
-
     get_input(str, "Name: ", only_letters);
     tmp.setName(str);
     get_input(str, "Login: ", only_letters);
     tmp.setLogin(str);
-    _user[_current % 1] = tmp;
-    _current++;
-    if (_current <= 1)
-        _index = _current;
+    this->_user[_current % 1] = tmp;
+    this->_current++;
+    if (this->_current <= 1)
+        this->_index = this->_current;
     std::cout << YELLOW << "*------ADDED-------*" << RESET << std::endl;
     std::vector<std::string> src;
     src.push_back("ft_isalpha.c");
-    src.push_back("ft_isalnum.c");
-    src.push_back("ft_isascii.c");
+    // src.push_back("ft_isalnum.c");
+    // src.push_back("ft_isascii.c");
     std::string dst = "Rendu/NormMe.c";
     for (std::vector<std::string>::iterator it = src.begin(); it != src.end(); ++it)
     {
@@ -116,10 +118,9 @@ void    NormThon::start()
         }
         while (cmd == "norm")
         {
-            if (runNorminette(dst))
+            if (runNorminette(dst, _user[_current]))
             {
                 std::cout << BOLDMAGENTA << "Norminette check passed for " << YELLOW << *it << RESET << std::endl;
-                count++;
                 break;
             }
             else
@@ -139,6 +140,7 @@ void    NormThon::start()
             std::cout << BOLDCYAN << "Level 1 passed." << RESET << std::endl;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
+    std::cout << "❌ " << _user[1].getCount() << std::endl;
 }
 
 std::string resize(std::string str)
@@ -151,33 +153,21 @@ std::string resize(std::string str)
     return (str);
 }
 
-void    NormThon::display()
-{
-    std::cout << MAGENTA "|     INDEX|      NAME|     LOGIN|" << std::endl;
-    for (int i = 0; i < (int)this->_index; i++)
-    {
-        std::cout
-        << "|" << std::setw(10) << i
-        << "|" << std::setw(10) << resize(_user[i].getName())
-        << "|" << std::setw(10) << resize(_user[i].getLogin())
-        << "|" << std::endl;
-    }
-}
-
 void    NormThon::level()
 {
-    unsigned int    index;
-    display();
+    unsigned int    i;
+    std::cout << _user[0].getCount() << std::endl;
     std::cout << GREEN "Enter the index " << WHITE;
-    std::cin >> index;
+    std::cin >> i;
     if (std::cin.fail())
         std::cout << RED << "TRY AGAIN " << WHITE << std::endl;
     else
     {
-        if (index < _index)
+        if (i < this->_index)
         {
-            std::cout << "Name: " << _user[index].getName() << std::endl;
-            std::cout << "Login: " << _user[index].getLogin() << std::endl;
+            std::cout << "Name: " << this->_user[i].getName() << std::endl;
+            std::cout << "Login: " << this->_user[i].getLogin() << std::endl;
+            std::cout << "Point: " << this->_user[i].getCount() << std::endl;
         }
         else
             std::cout << RED << "TRY AGAIN " << WHITE << std::endl;

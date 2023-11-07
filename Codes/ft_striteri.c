@@ -1,18 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   NormMe.c                                           :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arakhurs <arakhurs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arakhurs <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/09 17:57:01 by arakhurs          #+#    #+#             */
-/*   Updated: 2023/11/07 19:50:28 by arakhurs         ###   ########.fr       */
+/*   Created: 2022/03/09 12:25:59 by arakhurs          #+#    #+#             */
+/*   Updated: 2022/03/13 13:20:34 by arakhurs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalpha(int c)
+void	ft_striteri(char *s, void (*f) (unsigned int, char*))
 {
-	return ((c > 64 && c < 91) || (c > 96 && c < 123));
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (s != NULL && f != NULL)
+	{
+		i = ft_strlen(s);
+		while (j < i)
+		{
+			(*f)(j, s);
+			s++;
+			j++;
+		}
+	}
 }

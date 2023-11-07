@@ -37,14 +37,11 @@ class NormThon
         ~NormThon();
         void    start(void);
         void    level(void);
-        void    display(void);
 
     private:
         Users           _user[1];
         unsigned int    _current;
         unsigned int    _index;
-        // const char      *_codedir;
-        // const char      *_userdir;
 };
 
 #endif

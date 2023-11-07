@@ -6,13 +6,13 @@
 /*   By: arakhurs <arakhurs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 20:41:20 by arakhurs          #+#    #+#             */
-/*   Updated: 2023/11/07 16:12:24 by arakhurs         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:15:29 by arakhurs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	   ft_isascii(int c)
+int	ft_isascii(int c)
 {
-	return (c >= 0 && c < 128);
+			return (c >= 0 && c < 128);
 }

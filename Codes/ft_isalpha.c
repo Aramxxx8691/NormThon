@@ -6,13 +6,15 @@
 /*   By: arakhurs <arakhurs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:57:01 by arakhurs          #+#    #+#             */
-/*   Updated: 2023/11/07 16:13:23 by arakhurs         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:15:26 by arakhurs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isalpha(int c)
+
+
+int	ft_isalpha(int c)
 {
 	return ((c > 64 && c < 91) || (c > 96 && c < 123));
 }
