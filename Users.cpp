@@ -8,5 +8,5 @@ int         Users::getCount() const {return _count;}
 void    Users::setName(std::string s)   {_name = s;}
 void    Users::setLogin(std::string s)  {_login = s;}
 void    Users::setCount(int s)          {_count = s;}
-void    Users::incrementCount()         {_count++;}
-void    Users::decrementCount()         {_count--;}
+void    Users::incrementCount()         {_count += 10;}
+void    Users::decrementCount()         {_count -= 5;}

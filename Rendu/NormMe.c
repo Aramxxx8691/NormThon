@@ -5,14 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: arakhurs <arakhurs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/09 17:57:01 by arakhurs          #+#    #+#             */
-/*   Updated: 2023/11/07 19:50:28 by arakhurs         ###   ########.fr       */
+/*   Created: 2022/03/12 17:31:32 by arakhurs          #+#    #+#             */
+/*   Updated: 2023/11/07 20:41:46 by arakhurs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalpha(int c)
+int	ft_toupper(int c)
 {
-	return ((c > 64 && c < 91) || (c > 96 && c < 123));
+	if (c >= 'a' && c <= 'z')
+		c -= 32;
+	return (c);
 }

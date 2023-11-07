@@ -1,6 +1,6 @@
 #include "NormThon.hpp"
 
-NormThon::NormThon(){_current = 0; _index = 0;}
+NormThon::NormThon(){}
 NormThon::~NormThon(){}
 
 void    empty(std::string &str, std::string display)
@@ -91,19 +91,32 @@ void    NormThon::start()
     tmp.setName(str);
     get_input(str, "Login: ", only_letters);
     tmp.setLogin(str);
-    this->_user[_current % 1] = tmp;
-    this->_current++;
-    if (this->_current <= 1)
-        this->_index = this->_current;
+    this->_user = tmp;
     std::cout << YELLOW << "*------ADDED-------*" << RESET << std::endl;
     std::vector<std::string> src;
-    src.push_back("ft_isalpha.c");
+    // src.push_back("ft_isalpha.c");
     // src.push_back("ft_isalnum.c");
     // src.push_back("ft_isascii.c");
+
+    DIR *dir;
+    struct dirent *ent;
+    if ((dir = opendir("Codes/")) != NULL)
+    {
+        while ((ent = readdir(dir)) != NULL)
+        {
+            std::string filename = ent->d_name;
+            if (filename.length() > 2 && filename.substr(filename.length() - 2) == ".c")
+            {
+                src.push_back("Codes/" + filename);
+            }
+        }
+        closedir(dir);
+    }
+
     std::string dst = "Rendu/NormMe.c";
     for (std::vector<std::string>::iterator it = src.begin(); it != src.end(); ++it)
     {
-        std::string srcpath = "Codes/" + *it;
+        std::string srcpath = *it;
         copyFile(srcpath, dst);
 
         std::string cmd;
@@ -118,7 +131,7 @@ void    NormThon::start()
         }
         while (cmd == "norm")
         {
-            if (runNorminette(dst, _user[_current]))
+            if (runNorminette(dst, _user))
             {
                 std::cout << BOLDMAGENTA << "Norminette check passed for " << YELLOW << *it << RESET << std::endl;
                 break;
@@ -140,7 +153,6 @@ void    NormThon::start()
             std::cout << BOLDCYAN << "Level 1 passed." << RESET << std::endl;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
-    std::cout << "❌ " << _user[1].getCount() << std::endl;
 }
 
 std::string resize(std::string str)
@@ -155,24 +167,7 @@ std::string resize(std::string str)
 
 void    NormThon::level()
 {
-    unsigned int    i;
-    std::cout << _user[0].getCount() << std::endl;
-    std::cout << GREEN "Enter the index " << WHITE;
-    std::cin >> i;
-    if (std::cin.fail())
-        std::cout << RED << "TRY AGAIN " << WHITE << std::endl;
-    else
-    {
-        if (i < this->_index)
-        {
-            std::cout << "Name: " << this->_user[i].getName() << std::endl;
-            std::cout << "Login: " << this->_user[i].getLogin() << std::endl;
-            std::cout << "Point: " << this->_user[i].getCount() << std::endl;
-        }
-        else
-            std::cout << RED << "TRY AGAIN " << WHITE << std::endl;
-    }
-    std::cin.clear();
-    std::cin.ignore(INT_MAX, '\n');
+    std::cout << "Name: " << this->_user.getName() << std::endl;
+    std::cout << "Login: " << this->_user.getLogin() << std::endl;
+    std::cout << "Point: " << this->_user.getCount() << std::endl;
 }
- 

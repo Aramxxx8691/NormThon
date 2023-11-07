@@ -23,12 +23,11 @@
 # include <string>
 # include <iostream>
 # include <fstream>
+# include <cstring>
+# include <cstdlib>
+# include <vector>
+# include <dirent.h>
 # include "Users.hpp"
-
-#include <cstring>
-#include <cstdlib>
-#include <vector>
-#include <dirent.h>
 
 class NormThon
 {
@@ -39,9 +38,7 @@ class NormThon
         void    level(void);
 
     private:
-        Users           _user[1];
-        unsigned int    _current;
-        unsigned int    _index;
+        Users           _user;
 };
 
 #endif
