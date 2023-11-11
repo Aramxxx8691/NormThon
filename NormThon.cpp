@@ -151,7 +151,7 @@ void    NormThon::start()
         }
         if (it + 1 == src.end())
             std::cout << BOLDCYAN << "Level 1 passed." << RESET << std::endl;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 }
 

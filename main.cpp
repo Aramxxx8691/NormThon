@@ -1,4 +1,5 @@
 #include "NormThon.hpp"
+#include <sys/signal.h>
 
 void    display()
 {   std::cout << BOLDRED << " _____________________ " << std::endl
@@ -11,8 +12,15 @@ void    display()
     << " |" << std::endl << "\\_____________________/" << std::endl;
 }
 
+
+void ctrl_c(int sig)
+{
+   std::cout << sig <<std::endl;
+}
+
 int main()
 {
+    signal(2,SIG_IGN);
     NormThon norm;
     std::string cmd;
 
